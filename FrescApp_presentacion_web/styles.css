@@ -132,3 +132,17 @@
 .ad-assumptions a{color:var(--lime);text-decoration:underline}
 @media(max-width:760px){.ad-revenue{padding:10px;gap:7px}.ad-revenue-heading{align-items:flex-start;flex-direction:column;gap:4px}.ad-revenue-heading h3{font-size:14px}.ad-scenario{padding:8px}.ad-scenario span{font-size:9px}.ad-scenario strong{font-size:16px}.ad-assumptions{font-size:8px}}
 @media(min-width:761px) and (max-height:800px){.business{gap:8px}.business .section-heading h2{font-size:clamp(29px,2.8vw,40px)}.business .section-heading>p:not(.eyebrow){font-size:12px}.plan-card{padding:11px;gap:8px}.plan-card li{margin:3px 0;font-size:11px}.ad-revenue{padding:8px 11px;gap:6px}.ad-revenue-heading h3{font-size:13px}.ad-scenario{padding:6px 9px}.ad-scenario strong{font-size:16px}.ad-assumptions{font-size:8px}.business .finance-note{font-size:9px}}
+
+/* Tarjetas individuales de ingresos por anuncios, alineadas con los planes */
+.ad-revenue{border:0;background:transparent;border-radius:0;padding:0;gap:9px}
+.ad-revenue-heading{margin-bottom:1px}
+.ad-scenarios{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ad-scenario{background:#fffdf7;color:#19382e;border:1px solid #d8e2d8;border-radius:15px;padding:13px 15px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0;box-shadow:0 5px 18px #071d1614}
+.ad-scenario-featured{border:2px solid #c7ed96}
+.ad-users{font-size:clamp(20px,2vw,28px);font-weight:800;line-height:1;color:#19382e;letter-spacing:-.04em}
+.ad-user-label{font-size:10px!important;color:#52665b!important}
+.ad-scenario strong{font-size:clamp(21px,2vw,29px);line-height:1.1;color:#245e43;margin-top:6px}
+.ad-scenario small{font-size:10px;color:#617268}
+@media(max-width:760px){.ad-scenarios{grid-template-columns:1fr 1fr;gap:9px}.ad-scenario{padding:11px}.ad-users{font-size:22px}.ad-scenario strong{font-size:21px}}
+@media(max-width:460px){.ad-scenarios{grid-template-columns:1fr}.ad-scenario{padding:13px}.ad-users{font-size:24px}.ad-scenario strong{font-size:23px}}
+@media(min-width:761px) and (max-height:800px){.ad-revenue{gap:5px}.ad-scenarios{gap:8px}.ad-scenario{padding:7px 10px;gap:2px}.ad-users{font-size:18px}.ad-user-label{font-size:8px!important}.ad-scenario strong{font-size:18px;margin-top:2px}.ad-scenario small{font-size:8px}.ad-assumptions{font-size:7px}}
