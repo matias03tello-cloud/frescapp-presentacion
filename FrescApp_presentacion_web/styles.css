@@ -102,3 +102,17 @@
 .cost-summary p{font-size:11px;line-height:1.4;color:#c2d5c7;margin:0}
 @media(max-width:760px){.plan-grid,.cost-groups{grid-template-columns:1fr;gap:10px}.plan-card{padding:15px}.plan-plus{transform:none}.plan-price{font-size:28px}.business,.finance{gap:12px}.cost-card{padding:12px}.cost-summary{grid-template-columns:1fr;gap:8px}.cost-range{font-size:18px}.finance-note{font-size:10px}}
 @media(min-width:761px) and (max-height:800px){.business,.finance{gap:10px}.business .section-heading h2,.finance .section-heading h2{font-size:clamp(30px,3vw,43px)}.plan-card{padding:14px;gap:10px}.plan-card li{margin:4px 0}.cost-groups{gap:8px}.cost-card{padding:9px 12px;grid-template-columns:30px 1fr;gap:9px}.cost-icon{width:28px;height:28px}.cost-card h3{font-size:13px}.cost-card p{font-size:10px}.cost-range{font-size:17px}.cost-detail{font-size:9px}.cost-summary{padding:9px 12px}.cost-summary p{font-size:10px}}
+
+/* Costos en tarjetas visuales, coherentes con los planes de la sección anterior */
+.cost-groups{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch}
+.cost-card{position:relative;display:flex;flex-direction:column;gap:8px;background:#fffdf7;color:#19382e;border:1px solid #d8e2d8;border-radius:16px;padding:15px;min-width:0;box-shadow:0 5px 18px #071d1614}
+.cost-icon{width:34px;height:34px;flex:0 0 34px;border-radius:10px;display:grid;place-items:center;background:#e5f0df;color:#285d42;font-weight:800;font-size:12px}
+.cost-card h3{font-size:15px;line-height:1.2;margin:0}
+.cost-card p{font-size:11px;line-height:1.4;color:#52665b;margin:0}
+.cost-range{font-size:clamp(17px,1.45vw,22px);font-weight:800;letter-spacing:-.03em;color:#245e43;line-height:1.2;margin-top:auto;padding-top:3px}
+.cost-range small{display:block;font-size:10px;font-weight:600;letter-spacing:0;margin-top:3px}
+.cost-detail{display:block;font-size:10px;line-height:1.35;color:#617268;margin-top:0}
+.cost-summary{background:#ffffff0a}
+@media(max-width:760px){.cost-groups{grid-template-columns:1fr 1fr;gap:9px}.cost-card{padding:12px;gap:7px}.cost-card h3{font-size:13px}.cost-card p{font-size:10px}.cost-range{font-size:17px}.cost-detail{font-size:9px}.cost-icon{width:29px;height:29px;flex-basis:29px}}
+@media(max-width:460px){.cost-groups{grid-template-columns:1fr}.cost-card{padding:14px}.cost-card h3{font-size:15px}.cost-card p{font-size:11px}.cost-detail{font-size:10px}}
+@media(min-width:761px) and (max-height:800px){.finance{gap:9px}.cost-groups{gap:8px}.cost-card{padding:10px;gap:5px}.cost-icon{width:27px;height:27px;flex-basis:27px}.cost-card h3{font-size:12px}.cost-card p{font-size:9px;line-height:1.3}.cost-range{font-size:16px}.cost-detail{font-size:8px;line-height:1.25}.cost-summary{padding:8px 11px}.cost-summary p{font-size:9px}}
