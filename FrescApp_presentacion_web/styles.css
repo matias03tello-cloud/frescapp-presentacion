@@ -69,3 +69,36 @@
 .negative{color:#ffb5a7}.positive{color:var(--lime)}
 @media(max-width:760px){.plan-grid{grid-template-columns:1fr;gap:10px}.plan-card{padding:14px}.plan-plus{transform:none}.plan-card h3{font-size:25px}.plan-card ul{font-size:13px}.business,.finance{gap:14px}.finance-top{grid-template-columns:1fr;gap:9px}.investment-card{padding:13px}.investment-card strong{font-size:24px}.projection-heading{align-items:start;flex-direction:column;gap:2px}.projection-row{grid-template-columns:.35fr .8fr 1.1fr 1.2fr;padding:7px 5px;gap:4px;font-size:10px}.projection-header{font-size:8px}.finance-note{font-size:10px}}
 @media(min-width:761px) and (max-height:800px){.business,.finance{gap:14px}.business .section-heading h2,.finance .section-heading h2{font-size:clamp(32px,3.3vw,48px)}.plan-card{padding:15px}.plan-card li{margin:4px 0}.investment-card{padding:13px}.projection-wrap{padding-top:9px}.projection-row{padding:5px 9px}}
+
+/* Rediseño de tarjetas de planes y desglose completo de costos */
+.business,.finance{background:var(--forest);color:#f7f6ef;display:flex;flex-direction:column;justify-content:center;gap:clamp(12px,1.8vh,22px)}
+.business .section-heading h2,.finance .section-heading h2{color:#fff}
+.business .section-heading>p:not(.eyebrow),.finance .section-heading>p:not(.eyebrow){color:#c2d5c7}
+.business .eyebrow,.finance .eyebrow{color:var(--lime)}
+.plan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+.plan-card{background:#fffdf7!important;color:#19382e!important;border:1px solid #d8e2d8;border-radius:18px;padding:clamp(16px,1.8vw,24px);display:flex;flex-direction:column;gap:14px;min-width:0}
+.plan-plus{border:2px solid #7bb5ff!important;transform:translateY(-4px)}
+.plan-premium{border:2px solid #c7ed96!important}
+.plan-card-top{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.plan-label{font-size:12px;letter-spacing:.12em;font-weight:800;color:#47705a}
+.plan-price{font-size:clamp(27px,2.4vw,36px);line-height:1.1;letter-spacing:-.04em;font-weight:800;white-space:nowrap}
+.plan-price small{font-size:12px;letter-spacing:0;font-weight:600}
+.plan-ad-tag{display:inline-flex;align-self:flex-start;border-radius:20px;padding:5px 10px;background:#f0e7d9;color:#694b2b;font-size:12px;font-weight:700}
+.plan-ad-tag.no-ads{background:#e5f3dd;color:#2b633e}
+.plan-card ul{padding-left:18px;margin:0;font-size:clamp(12px,1vw,14px);line-height:1.5}
+.plan-card li{margin:7px 0}
+.finance-note{font-size:11px;line-height:1.45;color:#c2d5c7;margin:0}
+.cost-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.cost-card{display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:start;background:#fffdf7;color:#19382e;border-radius:13px;padding:13px 15px;min-width:0}
+.cost-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#e5f0df;color:#285d42;font-weight:800;font-size:12px}
+.cost-card h3{font-size:15px;line-height:1.2;margin:0 0 4px}
+.cost-card p{font-size:11px;line-height:1.35;color:#52665b;margin:0 0 6px}
+.cost-range{font-size:19px;font-weight:800;letter-spacing:-.03em;color:#245e43;line-height:1.2}
+.cost-range small{font-size:10px;font-weight:600;letter-spacing:0}
+.cost-detail{display:block;font-size:10px;line-height:1.3;color:#617268;margin-top:5px}
+.cost-summary{display:grid;grid-template-columns:minmax(190px,.8fr) 1.2fr;gap:16px;align-items:center;border:1px solid #547260;border-radius:13px;padding:12px 16px;background:#ffffff0a}
+.cost-summary span{display:block;color:#c2d5c7;font-size:11px;margin-bottom:5px}
+.cost-summary strong{display:block;color:var(--lime);font-size:clamp(19px,2vw,27px);line-height:1.15}
+.cost-summary p{font-size:11px;line-height:1.4;color:#c2d5c7;margin:0}
+@media(max-width:760px){.plan-grid,.cost-groups{grid-template-columns:1fr;gap:10px}.plan-card{padding:15px}.plan-plus{transform:none}.plan-price{font-size:28px}.business,.finance{gap:12px}.cost-card{padding:12px}.cost-summary{grid-template-columns:1fr;gap:8px}.cost-range{font-size:18px}.finance-note{font-size:10px}}
+@media(min-width:761px) and (max-height:800px){.business,.finance{gap:10px}.business .section-heading h2,.finance .section-heading h2{font-size:clamp(30px,3vw,43px)}.plan-card{padding:14px;gap:10px}.plan-card li{margin:4px 0}.cost-groups{gap:8px}.cost-card{padding:9px 12px;grid-template-columns:30px 1fr;gap:9px}.cost-icon{width:28px;height:28px}.cost-card h3{font-size:13px}.cost-card p{font-size:10px}.cost-range{font-size:17px}.cost-detail{font-size:9px}.cost-summary{padding:9px 12px}.cost-summary p{font-size:10px}}
