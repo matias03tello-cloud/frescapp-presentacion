@@ -1,9 +1,9 @@
-# Informe de prueba del backend en otro equipo
+# Informe de prueba del backend en otro equipo — Benjamín
 
 ## 1. Identificación
 
 - Proyecto: FrescApp — Hito 2
-- Integrante que ejecuta la prueba:
+- Integrante que ejecuta la prueba: **Benjamín**
 - Fecha y hora:
 - Ubicación/laboratorio:
 - Equipo (marca/modelo o nombre):
@@ -79,4 +79,3 @@ Usar capturas legibles que permitan ver nombre de la petición, método/ruta, es
 - Diferencias respecto al computador principal:
 - Errores que se deben corregir:
 - Responsable y fecha de cierre:
-
