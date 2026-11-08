@@ -14,10 +14,10 @@ Este repositorio de presentaciones contiene la demostración interactiva, el gui
 
 | Prioridad | Hallazgo | Efecto | Estado o acción |
 |---|---|---|---|
-| Media | En `arq-app-compras` están versionados `package.json.antes-audit`, `package.json.respaldo-raiz`, `package-lock.json.antes-audit` y `package-lock.json.respaldo-raiz`. Los dos respaldos de `package.json` son idénticos entre sí; los lockfiles de respaldo son distintos del lockfile activo y entre sí. No se encontraron referencias de ejecución a esos nombres. | Confunden cuál manifiesto debe usar `npm ci` y añaden archivos grandes que no son necesarios para instalar. | Conviene retirarlos en una revisión del repositorio de código. El historial de Git conserva las versiones anteriores. |
+| Media | En `arq-app-compras` estaban versionados cuatro respaldos de manifiestos; los dos `package.json` son idénticos y los lockfiles son copias antiguas sin referencias de ejecución. | Confunden cuál manifiesto debe usar `npm ci` y añaden archivos grandes que no son necesarios para instalar. | El [PR #14](https://github.com/matias03tello-cloud/arq-app-compras/pull/14) los elimina y añade exclusiones; pendiente de revisión y fusión. |
 | Media | La app conserva servicios que consultan Firestore directamente, mientras la API REST implementa inventario y lista de compras en `functions/api/`. | Hay dos caminos de acceso al mismo dominio, pero todavía no dos despliegues equivalentes: el cliente no fue migrado a REST. | Es una transición deliberada para evaluar el backend por separado. Mantenerla documentada y migrar pantalla por pantalla antes de retirar el acceso directo. |
-| Media | `services/comprasModelo.ts` limita cantidades a tres decimales. El validador REST de lista de compras limita el rango y exige enteros para `unidad`, pero no aplica el mismo máximo de tres decimales. | Una cantidad podría aceptarse por Postman y rechazarse desde la app. | Alinear la regla del backend y conservar su validación independiente; nunca confiar solo en el cliente. |
-| Media | La prueba REST está documentada mediante Postman; no se encontró una suite automatizada dedicada al contrato de rutas, autenticación y errores HTTP. | Un cambio puede alterar códigos o mensajes sin que una prueba automática lo detecte. | Mantener Postman para la demostración y considerar pruebas de contrato automatizadas como trabajo pendiente. |
+| Media | La app y la API aplicaban reglas distintas para decimales de lista de compras. | Una cantidad podía aceptarse por Postman y rechazarse desde la app. | El [PR #14](https://github.com/matias03tello-cloud/arq-app-compras/pull/14) alinea el máximo de tres decimales al crear y actualizar, con tres pruebas dirigidas aprobadas; pendiente de revisión y fusión. |
+| Media | La suite ahora incluye pruebas dirigidas para la validación de compras, pero no una suite automatizada completa para rutas, autenticación y errores HTTP. | Los códigos y respuestas del controlador todavía pueden cambiar sin una prueba de contrato específica. | Mantener Postman para la demostración y considerar pruebas automatizadas del contrato REST como trabajo pendiente. |
 | Alta | El informe de Matías registra un CRUD previo de inventario, pero no adjunta capturas; el CRUD de lista no tiene resultados registrados. El informe asignado a Benjamín sigue sin datos de ejecución. | Los entregables no evidencian todavía los dos recursos y la repetición en otro computador. | Completar ambas tablas con respuestas observadas y guardar capturas redactadas antes de marcar el paso 9 como cerrado. |
 | Baja | El informe técnico y la colección Postman estaban copiados en ambos repositorios. El PDF ya estaba únicamente en el repositorio de código. | Las instrucciones y la colección podían divergir después de un cambio al backend. | Este cambio retira las dos copias y enlaza la guía, el PDF y la colección desde su ubicación canónica en el repositorio de código. |
 
@@ -30,11 +30,10 @@ Este repositorio de presentaciones contiene la demostración interactiva, el gui
 
 ## Pendiente para cerrar la revisión
 
-1. Retirar los cuatro respaldos de manifiestos del repositorio de código en un cambio revisado.
-2. Alinear el máximo de tres decimales para la lista de compras entre app y API.
-3. Registrar las respuestas y capturas de ambos CRUD, incluido el computador de Benjamín.
-4. Considerar pruebas automatizadas de contrato para rutas, autenticación, validación y errores.
-5. Migrar gradualmente la app a REST solo cuando cada pantalla esté integrada y comprobada.
+1. Revisar y fusionar el PR #14 del repositorio de código para retirar respaldos y alinear la precisión decimal.
+2. Registrar las respuestas y capturas de ambos CRUD, incluido el computador de Benjamín.
+3. Considerar pruebas automatizadas de contrato para rutas, autenticación y errores HTTP.
+4. Migrar gradualmente la app a REST solo cuando cada pantalla esté integrada y comprobada.
 
 La auditoría es estática: no declara como ejecutados los CRUD que no tienen evidencia en los informes ni afirma que el conjunto del backend haya sido probado de nuevo en esta revisión.
 
