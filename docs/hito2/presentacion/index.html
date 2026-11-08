@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102e24">
+  <meta name="description" content="Presentación interactiva del backend REST de FrescApp para el Hito 2.">
+  <title>FrescApp · Backend Hito 2</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="FrescApp, inicio"><span class="brand-mark">F</span><span>FrescApp <small>Hito 2 · Backend</small></span></a>
+    <div class="top-actions">
+      <a class="quiet-link" href="https://matias03tello-cloud.github.io/frescapp-presentacion/FrescApp_presentacion_web/">Hito 1 <span aria-hidden="true">↗</span></a>
+      <button class="icon-button" id="fullscreen" type="button" aria-label="Pantalla completa" title="Pantalla completa">⛶</button>
+    </div>
+  </header>
+
+  <main id="deck" aria-live="polite">
+    <section class="slide cover active" id="inicio" data-title="Portada">
+      <div class="cover-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> ARQUITECTURA DE DESARROLLO · HITO 2</p>
+        <h1>El motor detrás<br>de <em>FrescApp.</em></h1>
+        <p class="lead">Un backend REST que recibe, valida y guarda datos para que la app pueda crecer con orden.</p>
+        <div class="tag-row"><span>2 recursos</span><span>4 capas</span><span>Firestore</span></div>
+        <button class="primary-button" data-goto="1">Conocer el backend <span aria-hidden="true">→</span></button>
+      </div>
+      <div class="cover-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="jar"><div class="jar-lid"></div><div class="jar-body"><span class="leaf leaf-a"></span><span class="leaf leaf-b"></span><span class="leaf leaf-c"></span><span class="jar-label">fresco<br><b>app</b></span></div></div>
+        <div class="float-card card-request"><span class="mini-icon">↗</span><b>POST</b><small>crear alimento</small></div>
+        <div class="float-card card-store"><span class="mini-icon">▤</span><b>Firestore</b><small>persistencia real</small></div>
+        <div class="float-card card-check"><span class="check-icon">✓</span><b>201 Created</b><small>respuesta HTTP</small></div>
+        <div class="spark spark-a">✳</div><div class="spark spark-b">✦</div>
+      </div>
+      <div class="cover-note">Una petición. Un recorrido claro. Un dato que permanece.</div>
+    </section>
+
+    <section class="slide" id="para-que" data-title="Qué resuelve">
+      <div class="section-head"><p class="eyebrow">01 · PROPÓSITO</p><h2>¿Qué hace el backend?</h2><p>Separa la pantalla de las reglas y del lugar donde viven los datos.</p></div>
+      <div class="three-cards">
+        <article class="info-card"><span class="card-number">01</span><div class="card-icon mint">↘</div><h3>Recibe</h3><p>Interpreta solicitudes HTTP orientadas a recursos.</p><code>POST /v1/inventario</code></article>
+        <article class="info-card"><span class="card-number">02</span><div class="card-icon lime">✓</div><h3>Protege y valida</h3><p>Verifica identidad, campos y reglas antes de modificar datos.</p><code>UID ← token verificado</code></article>
+        <article class="info-card"><span class="card-number">03</span><div class="card-icon peach">▤</div><h3>Persiste</h3><p>Lee o escribe en Firestore y devuelve el estado HTTP adecuado.</p><code>201 · 200 · 204</code></article>
+      </div>
+      <div class="callout"><span class="callout-mark">↳</span><span>La app no decide qué usuario es dueño del registro: el servidor deriva el UID del token validado.</span></div>
+    </section>
+
+    <section class="slide" id="recorrido" data-title="Recorrido por capas">
+      <div class="section-head"><p class="eyebrow">02 · RESPONSABILIDADES</p><h2>Una solicitud recorre cuatro capas</h2><p>Selecciona una etapa para ver qué responsabilidad resuelve.</p></div>
+      <div class="layer-layout">
+        <div class="layer-stack" role="tablist" aria-label="Capas del backend">
+          <button class="layer active" role="tab" aria-selected="true" data-layer="cliente"><span class="layer-index">0</span><span><b>Cliente / Postman</b><small>Envía HTTP + token</small></span><span class="layer-arrow">↓</span></button>
+          <button class="layer" role="tab" aria-selected="false" data-layer="http"><span class="layer-index">1</span><span><b>Router + controlador</b><small>Ruta, identidad, estado</small></span><span class="layer-arrow">↓</span></button>
+          <button class="layer" role="tab" aria-selected="false" data-layer="negocio"><span class="layer-index">2</span><span><b>Servicio de dominio</b><small>Reglas de FrescApp</small></span><span class="layer-arrow">↓</span></button>
+          <button class="layer" role="tab" aria-selected="false" data-layer="datos"><span class="layer-index">3</span><span><b>Repositorio</b><small>Consultas a Firestore</small></span><span class="layer-arrow">↓</span></button>
+          <div class="layer-database"><span class="db-cylinder">▤</span><span><b>Cloud Firestore</b><small>Persistencia</small></span></div>
+        </div>
+        <aside class="layer-explainer" aria-live="polite"><p class="eyebrow">LA IDEA CLAVE</p><div class="explain-icon" id="explainIcon">↗</div><h3 id="layerTitle">Cliente / Postman</h3><p id="layerBody">Envía el método, la ruta, los datos y el ID token de Firebase Authentication.</p><div class="file-pill" id="layerFile">Fuera de functions/api</div><div class="example-flow"><span>HTTP</span><i>→</i><span>reglas</span><i>→</i><span>datos</span></div></aside>
+      </div>
+    </section>
+
+    <section class="slide" id="recursos" data-title="Recursos y CRUD">
+      <div class="section-head"><p class="eyebrow">03 · CONTRATO REST</p><h2>Dos recursos, cuatro operaciones cada uno</h2><p>CRUD es crear, leer, actualizar y borrar. La colección Postman permite comprobar cada paso.</p></div>
+      <div class="resource-grid">
+        <article class="resource-card"><div class="resource-top"><span class="resource-icon inventory">◉</span><div><h3>Inventario</h3><small>Alimentos del hogar</small></div><span class="resource-path">/v1/inventario</span></div><div class="crud-grid"><span><b class="verb post">POST</b> crear alimento</span><span><b class="verb get">GET</b> consultar</span><span><b class="verb patch">PATCH</b> cambiar campos</span><span><b class="verb delete">DELETE</b> eliminar</span></div></article>
+        <article class="resource-card"><div class="resource-top"><span class="resource-icon shopping">✓</span><div><h3>Lista de compras</h3><small>Pendientes de comprar</small></div><span class="resource-path">/v1/lista-compras</span></div><div class="crud-grid"><span><b class="verb post">POST</b> agregar producto</span><span><b class="verb get">GET</b> consultar</span><span><b class="verb patch">PATCH</b> actualizar o marcar</span><span><b class="verb delete">DELETE</b> eliminar</span></div></article>
+      </div>
+      <div class="callout"><span class="callout-mark">i</span><span>Probar inventario no prueba automáticamente lista de compras: cada recurso necesita su propio ciclo CRUD y sus propias respuestas.</span></div>
+    </section>
+
+    <section class="slide" id="demo" data-title="Explora una petición">
+      <div class="section-head"><p class="eyebrow">04 · EXPLORADOR INTERACTIVO</p><h2>¿Qué ocurre cuando presionamos “actualizar”?</h2><p>Elige una operación. La pantalla muestra un ejemplo de contrato, sin conectarse a servicios.</p></div>
+      <div class="demo-layout">
+        <div class="request-console">
+          <div class="console-head"><span class="console-dot red"></span><span class="console-dot yellow"></span><span class="console-dot green"></span><span class="console-title">Postman · ejemplo didáctico</span></div>
+          <div class="operation-tabs" role="tablist" aria-label="Operación de ejemplo">
+            <button class="op-tab active" data-op="post">POST</button><button class="op-tab" data-op="get">GET</button><button class="op-tab" data-op="patch">PATCH</button><button class="op-tab" data-op="delete">DELETE</button>
+          </div>
+          <div class="request-line"><span id="requestVerb">POST</span><code id="requestPath">/v1/inventario</code></div>
+          <pre id="requestBody">{
+  "nombre": "Manzana",
+  "cantidad": 2,
+  "unidad": "unidad"
+}</pre>
+          <div class="response-panel"><div class="response-label"><span>RESPUESTA ESPERADA</span><strong id="responseStatus">201 Created</strong></div><pre id="responseBody">{
+  "data": { "id": "abc123", "nombre": "Manzana" }
+}</pre></div>
+          <p class="simulated-note">Muestra educativa · no envía una petición real</p>
+        </div>
+        <div class="demo-explainer"><div class="demo-badge">Fíjate en esto</div><h3 id="opTitle">POST crea un registro nuevo</h3><p id="opDescription">El servidor valida los campos, crea el documento y responde 201 Created con la ubicación del recurso.</p><div class="response-rule"><span class="rule-check">✓</span><span id="opRule">El ID lo genera el servidor; el cliente no define el UID del dueño.</span></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="http" data-title="Estados HTTP">
+      <div class="section-head"><p class="eyebrow">05 · PROTOCOLO HTTP</p><h2>El código de estado también comunica</h2><p>Un error devuelto como éxito es una falla de diseño, aunque el servidor no se caiga.</p></div>
+      <div class="status-board">
+        <button class="status-card success selected" data-status="201"><b>201</b><span>Created</span><small>Se creó el recurso</small></button>
+        <button class="status-card success" data-status="200"><b>200</b><span>OK</span><small>Lectura o cambio correcto</small></button>
+        <button class="status-card success" data-status="204"><b>204</b><span>No Content</span><small>Borrado sin cuerpo</small></button>
+        <button class="status-card error" data-status="400"><b>400</b><span>Bad Request</span><small>Datos inválidos</small></button>
+        <button class="status-card error" data-status="401"><b>401</b><span>Unauthorized</span><small>Token faltante o inválido</small></button>
+        <button class="status-card error" data-status="404"><b>404</b><span>Not Found</span><small>Ruta o registro inexistente</small></button>
+      </div>
+      <div class="status-detail" aria-live="polite"><span class="detail-status" id="detailCode">201</span><div><b id="detailTitle">Registro creado</b><p id="detailText">Se usa al completar POST. La respuesta incluye el nuevo recurso y su ubicación.</p></div><code id="detailExample">Location: /api/v1/inventario/abc123</code></div>
+    </section>
+
+    <section class="slide" id="frameworks" data-title="Tecnologías elegidas">
+      <div class="section-head"><p class="eyebrow">06 · TECNOLOGÍA CON MOTIVO</p><h2>¿Qué problema resuelve cada opción?</h2><p>Cloud Functions es la plataforma. Express y Fastify son frameworks HTTP; resuelven otra parte.</p></div>
+      <div class="technology-map"><div class="platform-card"><span class="platform-icon">☁</span><div><small>PLATAFORMA ELEGIDA</small><h3>Cloud Functions v2</h3><p>Ejecuta y expone la función HTTP bajo demanda; conecta con el entorno Firebase.</p></div><span class="choice-chip">Elegida</span></div><div class="framework-label">Dentro de esa plataforma, una capa HTTP puede organizar las rutas:</div>
+        <div class="framework-options"><button class="framework-card chosen" data-framework="router"><span class="framework-symbol">⌘</span><small>OPCIÓN ELEGIDA</small><h3>Router propio</h3><p>Tabla simple de rutas y métodos para dos recursos.</p><span class="tradeoff">Menos dependencias · despacho manual</span></button><button class="framework-card" data-framework="express"><span class="framework-symbol">E</span><small>ALTERNATIVA</small><h3>Express</h3><p>Rutas y middleware encadenado para tareas HTTP transversales.</p><span class="tradeoff">Ecosistema amplio · dependencia extra</span></button><button class="framework-card" data-framework="fastify"><span class="framework-symbol">F</span><small>ALTERNATIVA</small><h3>Fastify</h3><p>Rutas, plugins y esquemas para validar/serializar.</p><span class="tradeoff">Contrato explícito · esquemas que mantener</span></button></div>
+      </div>
+      <div class="decision-note" aria-live="polite"><b id="frameworkDecisionTitle">Decisión FrescApp</b><span id="frameworkDecision">Para dos recursos elegimos el router propio y aceptamos mantener manualmente el despacho y el formato de errores.</span></div>
+    </section>
+
+    <section class="slide" id="arquitectura" data-title="Monolito o microservicios">
+      <div class="section-head"><p class="eyebrow">07 · DECISIÓN DE ARQUITECTURA</p><h2>Monolito modular para el alcance actual</h2><p>La decisión se evalúa por sus razones y costos, no por cuál palabra suena más moderna.</p></div>
+      <div class="architecture-compare"><div class="architecture-visual"><div class="mono-shell"><div class="mono-header"><span class="shell-dot"></span><b>FrescApp API · un despliegue</b></div><div class="module-box active-module"><span>▦</span><b>Inventario</b><small>mismo servicio</small></div><div class="shared-core"><span>◉</span><div><b>Auth + Firestore</b><small>recursos compartidos</small></div></div><div class="module-box"><span>✓</span><b>Lista de compras</b><small>mismo servicio</small></div></div><div class="micro-hint">Microservicios = despliegues separados + comunicación entre servicios</div></div>
+        <div class="architecture-reasons"><article class="reason-card"><span class="reason-icon plus">+</span><div><h3>Por qué encaja hoy</h3><p>Equipo pequeño, dos recursos, identidad y persistencia compartidas, menor costo de operación y despliegue.</p></div></article><article class="reason-card"><span class="reason-icon minus">↗</span><div><h3>Qué costo aceptamos</h3><p>Los módulos se publican y escalan juntos; una falla del servicio puede afectar ambos.</p></div></article><article class="reason-card"><span class="reason-icon next">↻</span><div><h3>Cuándo reevaluarlo</h3><p>Si un recurso necesita carga, disponibilidad, seguridad o ritmo de despliegue independiente.</p></div></article></div></div>
+    </section>
+
+    <section class="slide" id="prueba" data-title="Cómo reproducirlo">
+      <div class="section-head"><p class="eyebrow">08 · REPRODUCIBILIDAD</p><h2>La prueba debe poder repetirse en otro equipo</h2><p>Emuladores locales, datos sintéticos y evidencia clara de cada respuesta.</p></div>
+      <div class="proof-steps"><article><span>1</span><div><b>Preparar</b><small>Node 22 · Java 21 · dependencias</small></div></article><article><span>2</span><div><b>Levantar</b><small>Auth + Firestore + Functions Emulator</small></div></article><article><span>3</span><div><b>Importar en local</b><small>Colección JSON, sin sincronizar nube</small></div></article><article><span>4</span><div><b>Ejecutar ambos CRUD</b><small>201 · 200 · 200 · 204 por recurso</small></div></article><article><span>5</span><div><b>Guardar evidencia</b><small>Versiones, capturas y errores observados</small></div></article></div>
+      <div class="evidence-card"><div class="evidence-icon">▧</div><div><b>Informe para el segundo computador</b><p>Registra ambiente y resultados separados para inventario y lista de compras. Redacta tokens y contraseñas antes de compartir capturas.</p></div><a href="https://github.com/matias03tello-cloud/frescapp-presentacion/blob/main/docs/hito2/INFORME_PRUEBA_OTRO_EQUIPO.md">Abrir plantilla <span>↗</span></a></div>
+    </section>
+
+    <section class="slide closing" id="cierre" data-title="Cierre">
+      <p class="eyebrow">09 · IDEA FINAL</p><h2>Un backend es más que<br>una ruta que responde.</h2><p class="closing-lead">Es un contrato claro, datos persistentes, identidad protegida y decisiones que podemos defender.</p>
+      <div class="closing-points"><span>API REST propia</span><span>Capas separadas</span><span>Firestore</span><span>Monolito modular</span></div>
+      <div class="closing-links"><a href="https://github.com/matias03tello-cloud/frescapp-presentacion/blob/main/docs/hito2/BACKEND_HITO2.md">Informe técnico <span>↗</span></a><a href="https://github.com/matias03tello-cloud/frescapp-presentacion/blob/main/docs/hito2/FrescApp-Hito2.postman_collection.json">Colección Postman <span>↗</span></a><a href="https://github.com/matias03tello-cloud/frescapp-presentacion/blob/main/docs/hito2/GUIÓN_PRESENTACION_HITO2.md">Guion del equipo <span>↗</span></a><a href="https://github.com/matias03tello-cloud/frescapp-presentacion/blob/main/docs/hito2/PROMPT_OTRO_CODEX_HITO2.md">Prompt para Codex <span>↗</span></a></div>
+      <div class="closing-mark" aria-hidden="true">F</div>
+    </section>
+  </main>
+
+  <footer class="deck-controls"><button class="nav-button" id="prev" type="button" aria-label="Diapositiva anterior">← <span>Anterior</span></button><div class="progress-wrap"><div class="progress-track"><div class="progress-fill" id="progress"></div></div><div class="slide-meta"><span id="slideNumber">01</span><span class="meta-divider">/</span><span id="slideCount">10</span><span class="meta-title" id="slideTitle">Portada</span></div></div><div class="dot-nav" id="dotNav" aria-label="Ir a diapositiva"></div><button class="nav-button next-button" id="next" type="button" aria-label="Siguiente diapositiva"><span>Siguiente</span> →</button></footer>
+</body>
+</html>
+
