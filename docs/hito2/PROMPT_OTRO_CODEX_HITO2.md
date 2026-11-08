@@ -2,12 +2,15 @@
 
 Copia este texto en Codex después de abrir la carpeta FrescApp sincronizada en el otro computador. Si la ubicación de OneDrive cambia, selecciona manualmente esa carpeta en Codex.
 
+**Repositorio de código:** <https://github.com/matias03tello-cloud/arq-app-compras>  
+**Repositorio de materiales y colección:** <https://github.com/matias03tello-cloud/frescapp-presentacion>
+
 ```text
 Necesito reproducir la demostración local del backend de FrescApp, Hito 2, en este computador y documentarla en el informe de prueba.
 
-Usa la carpeta abierta como raíz del proyecto. No publiques ni sincronices la colección con la nube de Postman. No uses servicios reales ni APIs externas: toda petición debe ir a Firebase Emulator Suite en localhost. No despliegues Functions.
+La raíz que debes abrir es el repositorio de código `matias03tello-cloud/arq-app-compras`; el repositorio de presentaciones solo contiene materiales. No publiques ni sincronices la colección con la nube de Postman. No uses servicios reales ni APIs externas: toda petición debe ir a Firebase Emulator Suite en localhost. No despliegues Functions.
 
-Lee primero docs/hito2/BACKEND_HITO2.md, docs/hito2/INFORME_PRUEBA_OTRO_EQUIPO.md y la colección docs/hito2/FrescApp-Hito2.postman_collection.json. Comprueba que el árbol corresponde a FrescApp y revisa el package.json y firebase.json.
+Lee primero `docs/hito2/BACKEND_HITO2.md` y `docs/hito2/FrescApp-Hito2.postman_collection.json` en el repositorio de código. Usa el informe de prueba de Benjamín de este repositorio de materiales como plantilla: https://github.com/matias03tello-cloud/frescapp-presentacion/blob/main/docs/hito2/INFORME_PRUEBA_OTRO_EQUIPO.md. Comprueba que el árbol corresponde a FrescApp y revisa `package.json` y `firebase.json`.
 
 1. Registra en el informe fecha, sistema operativo, versiones de Node.js, Java, Firebase CLI y Postman. El proyecto documenta Node 22 y Java 21.
 2. Guíame para ejecutar npm ci y npm ci --prefix functions solo si las dependencias no están instaladas.
@@ -26,5 +29,4 @@ Al final, resume qué funcionó, qué falló y qué evidencias guardar. Deja los
 La colección usa solo direcciones del emulador local (`127.0.0.1`), cuenta sintética y variables vacías para secretos. En otra computadora debe ejecutarse con Firebase Emulator Suite iniciada; el archivo no se conecta a un backend público.
 
 Enlace directo al JSON para adjuntarlo al Codex o descargarlo e importarlo localmente en Postman:  
-https://raw.githubusercontent.com/matias03tello-cloud/frescapp-presentacion/main/docs/hito2/FrescApp-Hito2.postman_collection.json
-
+https://raw.githubusercontent.com/matias03tello-cloud/arq-app-compras/main/docs/hito2/FrescApp-Hito2.postman_collection.json
