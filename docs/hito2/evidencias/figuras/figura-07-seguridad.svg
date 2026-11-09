@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Credenciales e identidad en el backend FrescApp</title>
+  <desc id="desc">Diagrama de protección: gitignore excluye archivos locales de entorno y credenciales; se conservan ejemplos sin secretos; el controlador valida el token de Firebase y limita el acceso de Firestore al UID verificado.</desc>
+  <defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#6d8b73"/></marker><style>text{font-family:Arial,Helvetica,sans-serif;fill:#173b2d}.title{font-size:43px;font-weight:700}.eyebrow{font-size:16px;font-weight:700;letter-spacing:2px;fill:#748b3b}.cardtitle{font-size:20px;font-weight:700}.body{font-size:16px;fill:#4a6255}.small{font-size:14px;fill:#617468}.mono{font-family:Consolas,'Courier New',monospace;font-size:15px;fill:#173b2d}</style></defs>
+  <rect width="1600" height="900" fill="#f5f8f3"/>
+  <text x="70" y="82" class="eyebrow">FRESCAPP · HITO 2 · FIGURA 7</text>
+  <text x="70" y="145" class="title">Credenciales e identidad bajo control</text>
+  <text x="70" y="190" class="body">La configuración de ejemplo no contiene claves privadas ni tokens de usuarios.</text>
+
+  <g>
+    <rect x="70" y="255" width="335" height="425" rx="22" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+    <rect x="70" y="255" width="335" height="12" rx="6" fill="#d7a66d"/>
+    <text x="100" y="310" class="cardtitle">1 · Excluir secretos</text>
+    <text x="100" y="350" class="small">.gitignore evita publicar:</text>
+    <text x="100" y="395" class="mono">.env y .env.*</text><text x="100" y="430" class="mono">*service-account*.json</text>
+    <text x="100" y="465" class="mono">*firebase-adminsdk*.json</text><text x="100" y="500" class="mono">*.key · *.pem · *.p12</text>
+    <rect x="95" y="555" width="285" height="82" rx="14" fill="#f5f8f3"/>
+    <text x="115" y="588" class="small">Se guardan en archivos locales</text><text x="115" y="612" class="small">ignorados por Git.</text>
+
+    <rect x="435" y="255" width="335" height="425" rx="22" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+    <rect x="435" y="255" width="335" height="12" rx="6" fill="#9bbf89"/>
+    <text x="465" y="310" class="cardtitle">2 · Ejemplos seguros</text>
+    <text x="465" y="355" class="mono">.env.example</text><text x="465" y="385" class="small">Marcadores públicos opcionales</text>
+    <text x="465" y="443" class="mono">functions/.env.example</text><text x="465" y="473" class="small">ENFORCE_APP_CHECK=false</text>
+    <text x="465" y="530" class="body">El ejemplo explica la configuración;</text><text x="465" y="557" class="body">no guarda contraseñas ni claves.</text>
+    <text x="465" y="625" class="small">Los valores reales se quedan fuera del repo.</text>
+
+    <rect x="800" y="255" width="335" height="425" rx="22" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+    <rect x="800" y="255" width="335" height="12" rx="6" fill="#6e9b69"/>
+    <text x="830" y="310" class="cardtitle">3 · Verificar identidad</text>
+    <text x="830" y="355" class="small">Authorization: Bearer &lt;ID token&gt;</text>
+    <rect x="830" y="390" width="275" height="95" rx="15" fill="#e5efe2"/>
+    <text x="850" y="428" class="mono">controller.js</text><text x="850" y="458" class="mono">verifyIdToken(token, true)</text>
+    <line x1="965" y1="486" x2="965" y2="535" stroke="#6d8b73" stroke-width="4" marker-end="url(#arrow)"/>
+    <text x="850" y="580" class="cardtitle">decoded.uid</text><text x="850" y="615" class="small">No se acepta el UID del cliente.</text>
+
+    <rect x="1165" y="255" width="365" height="425" rx="22" fill="#173b2d"/>
+    <rect x="1165" y="255" width="365" height="12" rx="6" fill="#b4ca6a"/>
+    <text x="1195" y="310" class="cardtitle" style="fill:#ffffff">4 · Limitar el alcance</text>
+    <text x="1195" y="360" class="small" style="fill:#c4d5c2">El repositorio usa el UID verificado:</text>
+    <rect x="1195" y="395" width="305" height="76" rx="14" fill="#244d3c"/>
+    <text x="1215" y="440" class="mono" style="fill:#ffffff">usuarios/{uid}/inventario</text>
+    <rect x="1195" y="490" width="305" height="76" rx="14" fill="#244d3c"/>
+    <text x="1215" y="535" class="mono" style="fill:#ffffff">usuarios/{uid}/listaCompras</text>
+    <text x="1195" y="620" class="small" style="fill:#c4d5c2">Admin SDK opera bajo identidad</text><text x="1195" y="644" class="small" style="fill:#c4d5c2">validada por el servidor.</text>
+  </g>
+
+  <rect x="70" y="730" width="1460" height="90" rx="18" fill="#e5efe2"/>
+  <text x="105" y="770" class="cardtitle">Para la evidencia:</text><text x="315" y="770" class="body">mostrar archivos de ejemplo y código de validación;</text><text x="315" y="800" class="body">ocultar Authorization, idToken, contraseñas y cualquier clave real.</text>
+  <text x="70" y="860" class="small">Fuente: .gitignore, .env.example, functions/.env.example y functions/api/controller.js. Esquema basado en archivos reales, no captura de pantalla.</text>
+</svg>
+

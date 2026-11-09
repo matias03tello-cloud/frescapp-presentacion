@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Estructura de archivos del backend FrescApp</title>
+  <desc id="desc">Árbol real de funciones/api con rutas, controlador, servicio, validadores, repositorio, errores y archivo README, junto con la responsabilidad de cada capa.</desc>
+  <defs><style>text{font-family:Arial,Helvetica,sans-serif;fill:#173b2d}.title{font-size:43px;font-weight:700}.eyebrow{font-size:16px;font-weight:700;letter-spacing:2px;fill:#748b3b}.body{font-size:17px;fill:#4a6255}.small{font-size:15px;fill:#617468}.mono{font-family:Consolas,'Courier New',monospace;font-size:21px;fill:#f1f5ed}.mono2{font-family:Consolas,'Courier New',monospace;font-size:18px;fill:#d9e7d3}.cardtitle{font-size:20px;font-weight:700}.tag{font-size:14px;font-weight:700;letter-spacing:1px;fill:#748b3b}</style></defs>
+  <rect width="1600" height="900" fill="#f5f8f3"/>
+  <text x="70" y="82" class="eyebrow">FRESCAPP · HITO 2 · FIGURA 2</text>
+  <text x="70" y="145" class="title">Estructura implementada del backend</text>
+  <text x="70" y="190" class="body">Los módulos separan HTTP, reglas de negocio y acceso a datos.</text>
+
+  <rect x="70" y="240" width="680" height="555" rx="24" fill="#173b2d"/>
+  <text x="110" y="292" class="tag" style="fill:#b4ca6a">ÁRBOL DE ARCHIVOS</text>
+  <text x="110" y="350" class="mono">functions/</text>
+  <text x="140" y="392" class="mono2">├─ index.js</text><text x="490" y="392" class="mono2">Cloud Functions</text>
+  <text x="140" y="434" class="mono2">└─ api/</text>
+  <text x="188" y="476" class="mono2">├─ index.js</text>
+  <text x="188" y="518" class="mono2">├─ routes.js</text>
+  <text x="188" y="560" class="mono2">├─ controller.js</text>
+  <text x="188" y="602" class="mono2">├─ service.js</text>
+  <text x="188" y="644" class="mono2">├─ validators.js</text>
+  <text x="188" y="686" class="mono2">├─ repository.js</text>
+  <text x="188" y="728" class="mono2">├─ errors.js</text>
+  <text x="188" y="770" class="mono2">└─ README.md</text>
+
+  <g>
+    <rect x="800" y="240" width="730" height="112" rx="20" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+    <rect x="800" y="240" width="10" height="112" rx="5" fill="#d7a66d"/>
+    <text x="840" y="280" class="tag">ENTRADA Y HTTP</text><text x="840" y="315" class="cardtitle">index.js · routes.js · controller.js</text>
+    <text x="840" y="339" class="small">Exporta la función, resuelve rutas, verifica identidad y construye respuestas.</text>
+
+    <rect x="800" y="375" width="730" height="112" rx="20" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+    <rect x="800" y="375" width="10" height="112" rx="5" fill="#9bbf89"/>
+    <text x="840" y="415" class="tag">DOMINIO Y VALIDACIÓN</text><text x="840" y="450" class="cardtitle">service.js · validators.js · errors.js</text>
+    <text x="840" y="474" class="small">Aplica reglas, revisa entradas y representa errores del dominio.</text>
+
+    <rect x="800" y="510" width="730" height="112" rx="20" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+    <rect x="800" y="510" width="10" height="112" rx="5" fill="#6e9b69"/>
+    <text x="840" y="550" class="tag">ACCESO A DATOS</text><text x="840" y="585" class="cardtitle">repository.js</text>
+    <text x="840" y="609" class="small">Concentra consultas y escrituras en Cloud Firestore.</text>
+
+    <rect x="800" y="645" width="730" height="150" rx="20" fill="#e5efe2" stroke="#cbdcc8" stroke-width="2"/>
+    <text x="840" y="690" class="tag">LÍMITE ENTRE CAPAS</text>
+    <text x="840" y="732" class="body">El controlador no consulta Firestore.</text>
+    <text x="840" y="765" class="body">El servicio no forma respuestas HTTP.</text>
+  </g>
+  <text x="70" y="850" class="small">Fuente: árbol actual de functions/ y functions/api/README.md. Diagrama preparado a partir del repositorio.</text>
+</svg>
+
