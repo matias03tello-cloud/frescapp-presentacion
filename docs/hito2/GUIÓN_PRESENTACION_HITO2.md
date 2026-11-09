@@ -1,70 +1,80 @@
 # Guion de presentación — Backend de FrescApp (Hito 2)
 
-**Duración objetivo:** 7 minutos.  
-**Distribución:** tres integrantes, con bloques consecutivos y tiempos equilibrados.  
-**Orden:** demostración, explicación técnica, decisiones de arquitectura y cierre.
+**Duración objetivo:** 7 minutos. La presentación interactiva tiene 9 diapositivas.  
+**Reparto:** tres bloques consecutivos de diapositivas para reducir los cambios de expositor.
 
 **Nota de ensayo:** antes de presentar, ejecuten la colección en Postman y registren los resultados reales. No afirmen que una operación está comprobada si no la ejecutaron; si algo sigue pendiente, indíquenlo con claridad.
 
-## 0:00–0:35 · Apertura — Integrante 1
+## Integrante 1 — Diapositivas 1–3 · 0:00–2:05
 
-> “En el Hito 1 definimos qué necesitaba FrescApp. En este hito construimos el motor que recibe solicitudes, valida quién las hace, aplica reglas y guarda los datos. Hoy mostraremos el backend con dos recursos: inventario y lista de compras.”
+### Diapositiva 1 · Portada · 0:00–0:30
 
-## 0:35–2:20 · Demostración en Postman — Integrante 1
+> “En el Hito 1 definimos qué necesitaba FrescApp. En este hito construimos el motor que recibe solicitudes, valida quién las hace, aplica reglas y guarda los datos. Hoy mostraremos el backend que da soporte a inventario y lista de compras.”
 
-**El integrante 1 comparte la colección local y muestra una petición a la vez.**
+### Diapositiva 2 · ¿Qué hace el backend? · 0:30–1:00
 
-> “La colección se ejecuta contra Firebase Emulator Suite en este computador. No usamos APIs externas ni datos de producción. Primero iniciamos sesión con una cuenta sintética del emulador; Postman conserva localmente el token que devuelve Auth Emulator.”
+> “El backend recibe solicitudes HTTP, verifica la identidad y los datos, aplica las reglas de FrescApp y guarda o consulta la información. Así separamos la pantalla de la lógica y de la persistencia.”
 
-> “Para inventario enviamos POST para crear una manzana, GET para comprobar que quedó guardada, PATCH para cambiar la cantidad y DELETE para borrarla. Revisamos los estados: 201, 200, 200 y 204. El 204 confirma que el borrado terminó y por eso no trae cuerpo.”
+### Diapositiva 3 · Una solicitud recorre cuatro capas · 1:00–2:05
 
-> “Ahora repetimos el ciclo en lista de compras. Es un recurso distinto, con su propia ruta y campos. Así mostramos las cuatro operaciones en ambos recursos.”
+**Selecciona las etapas del diagrama mientras explicas el recorrido.**
 
-**Si el CRUD de lista de compras aún no se ha ensayado, no lo presenten como comprobado:** indiquen que falta esa ejecución y muestren el resultado cuando la hayan completado.
+> “La solicitud llega al router, que identifica el recurso, el método y el ID. El controlador se ocupa del token, la entrada y la respuesta HTTP. El servicio aplica las reglas del dominio, y el repositorio concentra las consultas a Firestore.”
 
-## 2:20–3:20 · Capas — Integrante 2
+> “El servidor obtiene el UID desde el ID token verificado; no confía en un UID enviado por el cliente. Así limita cada operación a los datos privados de la cuenta autenticada.”
 
-**El integrante 2 muestra el diagrama de capas y los archivos correspondientes.**
+## Integrante 2 — Diapositivas 4–6 · 2:05–4:45
 
-> “La petición entra por el router, que identifica el recurso, el método y el ID. El controlador se ocupa del protocolo HTTP: token, entrada y respuesta. El servicio contiene las reglas del dominio. El repositorio hace las consultas a Firestore. Así evitamos mezclar la respuesta HTTP con las reglas o las consultas.”
+### Diapositiva 4 · Dos recursos, cuatro operaciones cada uno · 2:05–2:30
 
-> “El servidor obtiene el UID del ID token verificado; no acepta el UID que mande el cliente. El repositorio limita la operación a las colecciones privadas de esa cuenta.”
+> “La API tiene dos recursos: inventario y lista de compras. En ambos podemos crear, leer, actualizar y borrar. Cada uno tiene rutas y datos propios, por eso comprobamos su ciclo CRUD por separado.”
 
-## 3:20–4:20 · Persistencia y HTTP — Integrante 2
+### Diapositiva 5 · Explorador interactivo y demostración Postman · 2:30–4:15
 
-> “Firestore es nuestra persistencia. Para la demostración usamos su emulador, de modo que se pueda repetir sin tocar producción. Las rutas REST están orientadas a recursos: /v1/inventario y /v1/lista-compras.”
+**La diapositiva es un ejemplo didáctico y no envía peticiones. Explica brevemente la operación y cambia a Postman para mostrar las llamadas reales contra Firebase Emulator Suite. Usa una cuenta y datos sintéticos.**
 
-> “Los estados de éxito dependen de la operación: 201 al crear, 200 al leer o actualizar y 204 al borrar. Para los errores usamos, por ejemplo, 400 si la entrada es inválida, 401 si falta un token válido y 404 si no existe la ruta o el registro.”
+> “La colección se ejecuta localmente contra los emuladores; no usamos APIs externas ni datos de producción. Postman conserva localmente el token que devuelve Auth Emulator.”
 
-## 4:20–5:20 · Framework web y plataforma — Integrante 3
+> “En inventario ejecutamos POST, GET, PATCH y DELETE. Revisamos 201 al crear, 200 al leer y actualizar, y 204 al borrar. Repetimos el mismo ciclo en lista de compras y confirmamos sus respuestas.”
 
-**El integrante 3 usa la comparación interactiva de la presentación.**
+**Si una operación no se ha ejecutado durante el ensayo, no la presentes como comprobada.** Indica qué quedó pendiente y vuelve a esta evidencia cuando esté lista.
 
-> “Firebase Cloud Functions v2 es la plataforma donde corre y se expone el servicio. Express y Fastify son frameworks HTTP que podrían organizar las rutas dentro de esa plataforma. En este alcance usamos onRequest y un router propio: tenemos dos recursos y preferimos mantener pocas dependencias. El costo que aceptamos es mantener manualmente el despacho de rutas y el formato de errores.”
+### Diapositiva 6 · El código de estado también comunica · 4:15–4:45
 
-> “Si aumentan las rutas comunes o el middleware, reevaluaríamos Express o Fastify. No los elegimos solo por popularidad; comparamos qué problema concreto resolverían en FrescApp.”
+> “Los códigos también describen los errores: 400 indica datos inválidos, 401 un token faltante o no válido y 404 una ruta o un recurso inexistente. Un error devuelto como éxito sería una falla del contrato.”
 
-## 5:20–6:20 · Monolito modular — Integrante 3
+## Integrante 3 — Diapositivas 7–9 · 4:45–7:00
 
-**El integrante 3 usa la comparación de arquitectura.**
+### Diapositiva 7 · ¿Qué problema resuelve cada opción? · 4:45–5:40
 
-> “La API es un monolito modular: un solo servicio publicable contiene los módulos de inventario y lista de compras, organizados por capas. Elegimos esto porque el equipo y la carga esperada son pequeños, y ambos recursos comparten autenticación, Firestore y despliegue.”
+**Usa la comparación interactiva de plataforma y frameworks.**
 
-> “Aceptamos que los dos recursos escalen y se publiquen juntos. Separaríamos servicios si uno necesitara despliegue, carga o disponibilidad independiente. En ese caso también tendríamos que operar más servicios y coordinar su comunicación.”
+> “Cloud Functions v2 es la plataforma donde corre el servicio. Express y Fastify son frameworks HTTP que pueden organizar las rutas dentro de esa plataforma. Para dos recursos usamos onRequest y un router propio, con menos dependencias. Aceptamos mantener manualmente el despacho de rutas y los errores.”
 
-## 6:20–7:00 · Cierre — Integrante 1
+> “Si aumentan las rutas comunes o el middleware, podríamos reevaluar Express o Fastify según lo que necesite el proyecto.”
 
-> “El resultado es una API REST propia, con persistencia en Firestore, autenticación, validación y capas separadas. La colección y el emulador permiten repetir la demostración. También dejamos documentada la decisión de arquitectura y sus costos. Gracias.”
+### Diapositiva 8 · Monolito modular para el alcance actual · 5:40–6:40
 
-## Reparto para tres integrantes
+**Muestra primero la estructura y luego los motivos para mantenerla.**
 
-- **Integrante 1:** apertura, demostración en Postman y cierre.
-- **Integrante 2:** capas, persistencia, autenticación y estados HTTP.
-- **Integrante 3:** plataforma, comparación de frameworks y decisión monolito modular.
+> “La API es un monolito modular: un servicio publicable contiene los módulos de inventario y lista de compras, separados internamente por capas. Encaja con el equipo y la carga esperada porque ambos recursos comparten autenticación, Firestore y despliegue.”
+
+> “Aceptamos que los dos recursos se publiquen y escalen juntos. Reevaluaríamos la decisión si uno necesitara carga, disponibilidad o despliegue independiente; separar servicios también aumentaría el costo de operación y coordinación.”
+
+### Diapositiva 9 · Cierre · 6:40–7:00
+
+> “El backend combina un contrato REST propio, capas separadas, autenticación y persistencia en Firestore. Elegimos la arquitectura por las necesidades actuales y tenemos claro cuándo volver a evaluarla. Gracias.”
+
+## Resumen del reparto
+
+- **Integrante 1:** diapositivas 1–3; propósito, identidad y capas.
+- **Integrante 2:** diapositivas 4–6; recursos, CRUD real en Postman y estados HTTP.
+- **Integrante 3:** diapositivas 7–9; plataforma, frameworks, arquitectura y cierre.
 
 ## Preparación del equipo
 
-- Ensayar la presentación completa con cronómetro y respetar los siete minutos.
-- Confirmar antes de exponer que los emuladores están iniciados y que Postman apunta al entorno local.
-- Usar datos sintéticos y ocultar tokens, contraseñas y datos personales en pantalla.
-- Cada integrante debe poder explicar su bloque y responder cómo se conecta con las capas del backend.
+- Ensayar con cronómetro y completar las nueve diapositivas en siete minutos.
+- Tener los emuladores iniciados y la colección Postman preparada antes de exponer.
+- Usar datos sintéticos y ocultar tokens, contraseñas y datos personales.
+- No presentar la animación de la diapositiva 5 como una llamada real; ejecutar Postman para demostrar el CRUD.
+- Cada integrante debe poder explicar su parte y cómo se conecta con las demás capas.
