@@ -1,70 +1,47 @@
-# Guion de presentación — Backend de FrescApp (Hito 2)
+# Guion breve — Presentación del backend FrescApp
 
-**Duración objetivo:** 7 minutos.  
-**Distribución:** tres integrantes, con bloques consecutivos y tiempos equilibrados.  
-**Orden:** demostración, explicación técnica, decisiones de arquitectura y cierre.
+**Duración:** 7 minutos · **Equipo:** 3 integrantes.
 
-**Nota de ensayo:** antes de presentar, ejecuten la colección en Postman y registren los resultados reales. No afirmen que una operación está comprobada si no la ejecutaron; si algo sigue pendiente, indíquenlo con claridad.
+La pantalla interactiva de Postman es didáctica. La demostración A1 se realiza en Postman real contra Firebase Emulator Suite, con datos sintéticos.
 
-## 0:00–0:35 · Apertura — Integrante 1
+## 0:00–0:20 · Apertura — Integrante 1
 
-> “En el Hito 1 definimos qué necesitaba FrescApp. En este hito construimos el motor que recibe solicitudes, valida quién las hace, aplica reglas y guarda los datos. Hoy mostraremos el backend con dos recursos: inventario y lista de compras.”
+> “En el Hito 1 definimos FrescApp. En el Hito 2 construimos el backend que recibe solicitudes, valida al usuario y guarda sus datos. Hoy mostraremos inventario y lista de compras.”
 
-## 0:35–2:20 · Demostración en Postman — Integrante 1
+## 0:20–2:30 · CRUD en vivo — Integrante 1
 
-**El integrante 1 comparte la colección local y muestra una petición a la vez.**
+> “Usamos Postman contra los emuladores locales, sin APIs externas ni datos de producción. Primero iniciamos sesión con una cuenta sintética para obtener el token.”
 
-> “La colección se ejecuta contra Firebase Emulator Suite en este computador. No usamos APIs externas ni datos de producción. Primero iniciamos sesión con una cuenta sintética del emulador; Postman conserva localmente el token que devuelve Auth Emulator.”
+> “En inventario creamos, consultamos, actualizamos y eliminamos un alimento. Se esperan los estados 201, 200, 200 y 204. Repetimos el mismo ciclo en lista de compras para comprobar el segundo recurso.”
 
-> “Para inventario enviamos POST para crear una manzana, GET para comprobar que quedó guardada, PATCH para cambiar la cantidad y DELETE para borrarla. Revisamos los estados: 201, 200, 200 y 204. El 204 confirma que el borrado terminó y por eso no trae cuerpo.”
+Mostrar el estado HTTP y la respuesta de cada petición. No afirmar que un paso pasó si no se ve el resultado.
 
-> “Ahora repetimos el ciclo en lista de compras. Es un recurso distinto, con su propia ruta y campos. Así mostramos las cuatro operaciones en ambos recursos.”
+## 2:30–3:25 · Capas — Integrante 2
 
-**Si el CRUD de lista de compras aún no se ha ensayado, no lo presenten como comprobado:** indiquen que falta esa ejecución y muestren el resultado cuando la hayan completado.
+> “La ruta recibe la petición; el controlador valida identidad y prepara la respuesta; el servicio aplica las reglas del dominio; el repositorio consulta Firestore. El servidor obtiene el UID del token verificado y limita cada registro a su dueño.”
 
-## 2:20–3:20 · Capas — Integrante 2
+## 3:25–4:15 · Persistencia y HTTP — Integrante 2
 
-**El integrante 2 muestra el diagrama de capas y los archivos correspondientes.**
+> “Firestore conserva los datos. Las rutas REST son `/v1/inventario` y `/v1/lista-compras`. Respondemos 201 al crear, 200 al leer o actualizar y 204 al borrar. Usamos 400 para datos inválidos, 401 para una sesión no válida y 404 si no existe la ruta o el registro.”
 
-> “La petición entra por el router, que identifica el recurso, el método y el ID. El controlador se ocupa del protocolo HTTP: token, entrada y respuesta. El servicio contiene las reglas del dominio. El repositorio hace las consultas a Firestore. Así evitamos mezclar la respuesta HTTP con las reglas o las consultas.”
+## 4:15–5:20 · Tecnologías — Integrante 3
 
-> “El servidor obtiene el UID del ID token verificado; no acepta el UID que mande el cliente. El repositorio limita la operación a las colecciones privadas de esa cuenta.”
+> “Escribimos el servicio en JavaScript sobre Node.js 22, el runtime configurado para Functions. Cloud Functions v2 publica la función HTTP `onRequest` y se integra con Firebase Authentication, Firestore y sus emuladores. Aceptamos depender de Firebase y su plan facturado en producción.”
 
-## 3:20–4:20 · Persistencia y HTTP — Integrante 2
+> “Para estas rutas elegimos un router propio y evitamos otra dependencia. Aceptamos mantener manualmente el despacho y los errores. Express ofrece rutas y middleware; Fastify agrega plugins y esquemas. Los reconsideraríamos si crecen las rutas comunes o las validaciones.”
 
-> “Firestore es nuestra persistencia. Para la demostración usamos su emulador, de modo que se pueda repetir sin tocar producción. Las rutas REST están orientadas a recursos: /v1/inventario y /v1/lista-compras.”
+## 5:20–6:20 · Arquitectura — Integrante 3
 
-> “Los estados de éxito dependen de la operación: 201 al crear, 200 al leer o actualizar y 204 al borrar. Para los errores usamos, por ejemplo, 400 si la entrada es inválida, 401 si falta un token válido y 404 si no existe la ruta o el registro.”
-
-## 4:20–5:20 · Framework web y plataforma — Integrante 3
-
-**El integrante 3 usa la comparación interactiva de la presentación.**
-
-> “Firebase Cloud Functions v2 es la plataforma donde corre y se expone el servicio. Express y Fastify son frameworks HTTP que podrían organizar las rutas dentro de esa plataforma. En este alcance usamos onRequest y un router propio: tenemos dos recursos y preferimos mantener pocas dependencias. El costo que aceptamos es mantener manualmente el despacho de rutas y el formato de errores.”
-
-> “Si aumentan las rutas comunes o el middleware, reevaluaríamos Express o Fastify. No los elegimos solo por popularidad; comparamos qué problema concreto resolverían en FrescApp.”
-
-## 5:20–6:20 · Monolito modular — Integrante 3
-
-**El integrante 3 usa la comparación de arquitectura.**
-
-> “La API es un monolito modular: un solo servicio publicable contiene los módulos de inventario y lista de compras, organizados por capas. Elegimos esto porque el equipo y la carga esperada son pequeños, y ambos recursos comparten autenticación, Firestore y despliegue.”
-
-> “Aceptamos que los dos recursos escalen y se publiquen juntos. Separaríamos servicios si uno necesitara despliegue, carga o disponibilidad independiente. En ese caso también tendríamos que operar más servicios y coordinar su comunicación.”
+> “Elegimos un monolito modular: inventario y lista de compras comparten despliegue, autenticación y base de datos. Para el equipo y la carga actuales, reduce operación. El costo es que ambos módulos escalan y se publican juntos. Separaríamos servicios si necesitaran despliegue o carga independientes.”
 
 ## 6:20–7:00 · Cierre — Integrante 1
 
-> “El resultado es una API REST propia, con persistencia en Firestore, autenticación, validación y capas separadas. La colección y el emulador permiten repetir la demostración. También dejamos documentada la decisión de arquitectura y sus costos. Gracias.”
+> “Construimos una API REST propia con dos recursos CRUD, capas separadas, autenticación y persistencia real. La colección permite repetir las pruebas con emuladores y datos sintéticos. Gracias.”
 
-## Reparto para tres integrantes
+## Reparto y preparación
 
-- **Integrante 1:** apertura, demostración en Postman y cierre.
-- **Integrante 2:** capas, persistencia, autenticación y estados HTTP.
-- **Integrante 3:** plataforma, comparación de frameworks y decisión monolito modular.
-
-## Preparación del equipo
-
-- Ensayar la presentación completa con cronómetro y respetar los siete minutos.
-- Confirmar antes de exponer que los emuladores están iniciados y que Postman apunta al entorno local.
-- Usar datos sintéticos y ocultar tokens, contraseñas y datos personales en pantalla.
-- Cada integrante debe poder explicar su bloque y responder cómo se conecta con las capas del backend.
+- **Integrante 1:** apertura, demostración Postman y cierre.
+- **Integrante 2:** capas, Firestore, identidad y estados HTTP.
+- **Integrante 3:** Node.js, Cloud Functions, router, alternativas y monolito modular.
+- Ensayen los siete minutos con ambos CRUD; inicien antes los emuladores y oculten tokens y contraseñas.
+- Cada integrante debe poder explicar una ruta y el costo de una decisión técnica.
