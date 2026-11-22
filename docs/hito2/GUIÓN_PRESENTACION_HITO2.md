@@ -1,47 +1,66 @@
-# Guion breve — Presentación del backend FrescApp
+# Guion de presentación — Backend de FrescApp (Hito 2)
 
-**Duración:** 7 minutos · **Equipo:** 3 integrantes.
+**Duración objetivo:** 7 minutos.  
+**Distribución:** tres integrantes.  
+**Orden:** demostración, capas, tecnologías y decisión de arquitectura.
 
-La pantalla interactiva de Postman es didáctica. La demostración A1 se realiza en Postman real contra Firebase Emulator Suite, con datos sintéticos.
+**Ensayo:** practiquen con la colección local y muestren las respuestas reales. La pantalla interactiva “Explora una petición” es didáctica, no reemplaza Postman.
 
 ## 0:00–0:20 · Apertura — Integrante 1
 
-> “En el Hito 1 definimos FrescApp. En el Hito 2 construimos el backend que recibe solicitudes, valida al usuario y guarda sus datos. Hoy mostraremos inventario y lista de compras.”
+> “En el Hito 1 definimos qué necesitaba FrescApp. En el Hito 2 construimos el backend que recibe solicitudes, valida la identidad y guarda los datos. Hoy mostraremos inventario y lista de compras.”
 
-## 0:20–2:30 · CRUD en vivo — Integrante 1
+## 0:20–2:30 · Demostración en Postman — Integrante 1
 
-> “Usamos Postman contra los emuladores locales, sin APIs externas ni datos de producción. Primero iniciamos sesión con una cuenta sintética para obtener el token.”
+**Antes de iniciar el cronómetro:** levanten los emuladores y ejecuten la solicitud "0. Crear cuenta local y guardar token". Así Postman tendrá un token sintético listo para las peticiones CRUD.
 
-> “En inventario creamos, consultamos, actualizamos y eliminamos un alimento. Se esperan los estados 201, 200, 200 y 204. Repetimos el mismo ciclo en lista de compras para comprobar el segundo recurso.”
+> “La colección apunta a Firebase Emulator Suite local. La autenticación usa 127.0.0.1:9099 y la API 127.0.0.1:5001; no usamos APIs externas ni producción.”
 
-Mostrar el estado HTTP y la respuesta de cada petición. No afirmar que un paso pasó si no se ve el resultado.
+> “En inventario ejecutamos POST, GET por ID, PATCH y DELETE. Después repetimos esas cuatro operaciones en lista de compras. Comprobamos 201 al crear, 200 al leer o actualizar y 204 al borrar.”
+
+**Orden exacto de la colección:**
+- Inventario: solicitudes 1, 2, 3 y 4.
+- Lista de compras: solicitudes 6, 8, 9 y 10. La solicitud 7 lee toda la colección y es opcional si falta tiempo.
+- Muestren el estado HTTP y la respuesta. No dejen visible el token ni la contraseña.
 
 ## 2:30–3:25 · Capas — Integrante 2
 
-> “La ruta recibe la petición; el controlador valida identidad y prepara la respuesta; el servicio aplica las reglas del dominio; el repositorio consulta Firestore. El servidor obtiene el UID del token verificado y limita cada registro a su dueño.”
+> “El router reconoce método y ruta. El controlador verifica el token, valida la entrada HTTP y prepara la respuesta. El servicio aplica reglas de FrescApp. El repositorio concentra las consultas a Firestore. El UID se obtiene del token verificado, nunca del cuerpo enviado por el cliente.”
 
-## 3:25–4:15 · Persistencia y HTTP — Integrante 2
+## 3:25–4:10 · Persistencia y HTTP — Integrante 2
 
-> “Firestore conserva los datos. Las rutas REST son `/v1/inventario` y `/v1/lista-compras`. Respondemos 201 al crear, 200 al leer o actualizar y 204 al borrar. Usamos 400 para datos inválidos, 401 para una sesión no válida y 404 si no existe la ruta o el registro.”
+> “Firestore conserva los datos en las subcolecciones de cada usuario. Usamos 201 al crear, 200 al leer o actualizar y 204 al borrar. Para errores respondemos 400 si los datos son inválidos, 401 si falta una sesión válida y 404 si la ruta o el registro no existe.”
 
-## 4:15–5:20 · Tecnologías — Integrante 3
+## 4:10–5:30 · Tecnologías y motivo — Integrante 3
 
-> “Elegimos JavaScript sobre Node.js 22 porque es el runtime configurado para Functions y trabaja con los SDK de Firebase del proyecto. Como JavaScript tiene tipado dinámico, validamos las entradas. Cloud Functions v2 ejecuta `onRequest` bajo demanda; aceptamos depender de Firebase y su plan facturado en producción.”
+> “El servicio está escrito en JavaScript sobre Node.js 22. Elegimos ese runtime porque ya está configurado para Firebase Functions y comparte los SDK del proyecto. JavaScript tiene tipado dinámico; por eso validamos explícitamente cada entrada.”
 
-> “Para estas rutas elegimos un router propio y evitamos otra dependencia. Aceptamos mantener manualmente el despacho y los errores. Express ofrece rutas y middleware; Fastify agrega plugins y esquemas. Los reconsideraríamos si crecen las rutas comunes o las validaciones.”
+> “Cloud Functions v2 ejecuta onRequest y publica la API por HTTPS bajo demanda. Reutiliza Authentication, Firestore y los emuladores, así no mantenemos otro servidor. El costo es depender de Firebase y habilitar facturación al desplegar en producción.”
 
-## 5:20–6:20 · Arquitectura — Integrante 3
+> “Para dos recursos usamos un router propio y evitamos una dependencia adicional. Aceptamos mantener el despacho y los errores. Express resuelve rutas y middleware comunes; Fastify añade plugins y esquemas. Los evaluaríamos de nuevo si crecen las rutas o validaciones compartidas.”
 
-> “Elegimos un monolito modular: inventario y lista de compras comparten despliegue, autenticación y base de datos. Para el equipo y la carga actuales, reduce operación. El costo es que ambos módulos escalan y se publican juntos. Separaríamos servicios si necesitaran despliegue o carga independientes.”
+## 5:30–6:30 · Monolito modular — Integrante 3
 
-## 6:20–7:00 · Cierre — Integrante 1
+> “Inventario y lista de compras viven en un solo servicio, separados por capas. Elegimos el monolito modular porque el equipo es pequeño y ambos recursos comparten autenticación y base de datos. Reducimos despliegues y operación; aceptamos que los módulos escalen juntos. Separaríamos servicios si necesitaran carga o despliegue independientes.”
 
-> “Construimos una API REST propia con dos recursos CRUD, capas separadas, autenticación y persistencia real. La colección permite repetir las pruebas con emuladores y datos sintéticos. Gracias.”
+## 6:30–7:00 · Cierre — Integrante 1
 
-## Reparto y preparación
+> “El resultado es una API REST propia, con dos recursos CRUD, autenticación, capas separadas y persistencia real en Firestore. La colección permite repetir la demostración localmente. Gracias.”
 
-- **Integrante 1:** apertura, demostración Postman y cierre.
-- **Integrante 2:** capas, Firestore, identidad y estados HTTP.
-- **Integrante 3:** Node.js, Cloud Functions, router, alternativas y monolito modular.
-- Ensayen los siete minutos con ambos CRUD; inicien antes los emuladores y oculten tokens y contraseñas.
-- Cada integrante debe poder explicar una ruta y el costo de una decisión técnica.
+## Reparto
+
+- **Integrante 1:** apertura, Postman y cierre.
+- **Integrante 2:** capas, persistencia, autenticación y estados HTTP.
+- **Integrante 3:** tecnologías, alternativas y monolito modular.
+
+## Preparación de Postman antes de exponer
+
+1. Desde la raíz del proyecto, iniciar Auth, Firestore y Functions Emulator:
+   npx firebase emulators:start --only auth,firestore,functions --project demo-frescapp-hito2
+2. En la colección local, confirmar authUrl = http://127.0.0.1:9099 y baseUrl = http://127.0.0.1:5001/demo-frescapp-hito2/southamerica-west1/api. Mantener la colección sin compartir ni sincronizar.
+3. Asignar una contraseña sintética a la variable local password. La variable email de ejemplo es hito2@frescapp.test; si ya existe en el emulador, usar otro correo sintético.
+4. Ejecutar la solicitud 0. La colección guarda el ID token y UID; los POST guardan inventarioId y compraId.
+5. Revisar manualmente los estados HTTP. Los scripts de la colección guardan tokens e IDs, pero no validan automáticamente los códigos de respuesta.
+6. Si ven identitytoolkit.googleapis.com en la ruta de autenticación, comprueben el host: la variable authUrl lo dirige a 127.0.0.1:9099, el emulador local.
+
+La sesión y la contraseña deben ser sintéticas. Redacten tokens y contraseñas en cualquier captura.
