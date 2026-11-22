@@ -68,14 +68,14 @@
         <article class="resource-card"><div class="resource-top"><span class="resource-icon inventory">◉</span><div><h3>Inventario</h3><small>Alimentos del hogar</small></div><span class="resource-path">/v1/inventario</span></div><div class="crud-grid"><span><b class="verb post">POST</b> crear alimento</span><span><b class="verb get">GET</b> consultar</span><span><b class="verb patch">PATCH</b> cambiar campos</span><span><b class="verb delete">DELETE</b> eliminar</span></div></article>
         <article class="resource-card"><div class="resource-top"><span class="resource-icon shopping">✓</span><div><h3>Lista de compras</h3><small>Pendientes de comprar</small></div><span class="resource-path">/v1/lista-compras</span></div><div class="crud-grid"><span><b class="verb post">POST</b> agregar producto</span><span><b class="verb get">GET</b> consultar</span><span><b class="verb patch">PATCH</b> actualizar o marcar</span><span><b class="verb delete">DELETE</b> eliminar</span></div></article>
       </div>
-      <div class="callout"><span class="callout-mark">i</span><span>Probar inventario no prueba automáticamente lista de compras: cada recurso necesita su propio ciclo CRUD y sus propias respuestas.</span></div>
+      <div class="callout"><span class="callout-mark">A1</span><span><strong>Demostración real en Postman:</strong> iniciar sesión con una cuenta sintética en Auth Emulator; ejecutar POST, GET, PATCH y DELETE en Inventario y repetir en Lista de compras. Comprobar 201, 200, 200 y 204 en cada recurso. El ejemplo de la siguiente pantalla es solo didáctico.</span></div>
     </section>
 
     <section class="slide" id="demo" data-title="Explora una petición">
-      <div class="section-head"><p class="eyebrow">04 · EXPLORADOR INTERACTIVO</p><h2>¿Qué ocurre cuando presionamos “actualizar”?</h2><p>Elige una operación. La pantalla muestra un ejemplo de contrato, sin conectarse a servicios.</p></div>
+      <div class="section-head"><p class="eyebrow">04 · EXPLORADOR INTERACTIVO</p><h2>¿Qué ocurre cuando presionamos “actualizar”?</h2><p>Ejemplo visual del contrato. No envía solicitudes; la demostración evaluada se hace en Postman.</p></div>
       <div class="demo-layout">
         <div class="request-console">
-          <div class="console-head"><span class="console-dot red"></span><span class="console-dot yellow"></span><span class="console-dot green"></span><span class="console-title">Postman · ejemplo didáctico</span></div>
+          <div class="console-head"><span class="console-dot red"></span><span class="console-dot yellow"></span><span class="console-dot green"></span><span class="console-title">Ejemplo visual · sin conexión</span></div>
           <div class="operation-tabs" role="tablist" aria-label="Operación de ejemplo">
             <button class="op-tab active" data-op="post">POST</button><button class="op-tab" data-op="get">GET</button><button class="op-tab" data-op="patch">PATCH</button><button class="op-tab" data-op="delete">DELETE</button>
           </div>
@@ -88,7 +88,7 @@
           <div class="response-panel"><div class="response-label"><span>RESPUESTA ESPERADA</span><strong id="responseStatus">201 Created</strong></div><pre id="responseBody">{
   "data": { "id": "abc123", "nombre": "Manzana" }
 }</pre></div>
-          <p class="simulated-note">Muestra educativa · no envía una petición real</p>
+          <p class="simulated-note">Muestra educativa · no reemplaza Postman real</p>
         </div>
         <div class="demo-explainer"><div class="demo-badge">Fíjate en esto</div><h3 id="opTitle">POST crea un registro nuevo</h3><p id="opDescription">El servidor valida los campos, crea el documento y responde 201 Created con la ubicación del recurso.</p><div class="response-rule"><span class="rule-check">✓</span><span id="opRule">El ID lo genera el servidor; el cliente no define el UID del dueño.</span></div></div>
       </div>
@@ -108,8 +108,8 @@
     </section>
 
     <section class="slide" id="frameworks" data-title="Tecnologías elegidas">
-      <div class="section-head"><p class="eyebrow">06 · TECNOLOGÍA CON MOTIVO</p><h2>¿Qué problema resuelve cada opción?</h2><p>Cloud Functions es la plataforma. Express y Fastify son frameworks HTTP; resuelven otra parte.</p></div>
-      <div class="technology-map"><div class="platform-card"><span class="platform-icon">☁</span><div><small>PLATAFORMA ELEGIDA</small><h3>Cloud Functions v2</h3><p>Ejecuta y expone la función HTTP bajo demanda; conecta con el entorno Firebase.</p></div><span class="choice-chip">Elegida</span></div><div class="framework-label">Dentro de esa plataforma, una capa HTTP puede organizar las rutas:</div>
+      <div class="section-head"><p class="eyebrow">06 · TECNOLOGÍA CON MOTIVO</p><h2>¿Qué problema resuelve cada opción?</h2><p>JavaScript sobre Node.js 22 ejecuta el servicio. Cloud Functions v2 lo publica; el router propio organiza las rutas.</p></div>
+      <div class="technology-map"><div class="platform-card"><span class="platform-icon">☁</span><div><small>PLATAFORMA Y RUNTIME ELEGIDOS</small><h3>Cloud Functions v2 · Node.js 22</h3><p>Usa onRequest y reutiliza Auth, Firestore y emuladores. Costo: dependencia de Firebase y facturación en producción.</p></div><span class="choice-chip">Elegida</span></div><div class="framework-label">Express y Fastify son alternativas de framework HTTP dentro de esa plataforma:</div>
         <div class="framework-options"><button class="framework-card chosen" data-framework="router"><span class="framework-symbol">⌘</span><small>OPCIÓN ELEGIDA</small><h3>Router propio</h3><p>Tabla simple de rutas y métodos para dos recursos.</p><span class="tradeoff">Menos dependencias · despacho manual</span></button><button class="framework-card" data-framework="express"><span class="framework-symbol">E</span><small>ALTERNATIVA</small><h3>Express</h3><p>Rutas y middleware encadenado para tareas HTTP transversales.</p><span class="tradeoff">Ecosistema amplio · dependencia extra</span></button><button class="framework-card" data-framework="fastify"><span class="framework-symbol">F</span><small>ALTERNATIVA</small><h3>Fastify</h3><p>Rutas, plugins y esquemas para validar/serializar.</p><span class="tradeoff">Contrato explícito · esquemas que mantener</span></button></div>
       </div>
       <div class="decision-note" aria-live="polite"><b id="frameworkDecisionTitle">Decisión FrescApp</b><span id="frameworkDecision">Para dos recursos elegimos el router propio y aceptamos mantener manualmente el despacho y el formato de errores.</span></div>
