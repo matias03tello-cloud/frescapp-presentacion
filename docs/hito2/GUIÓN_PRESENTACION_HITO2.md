@@ -26,7 +26,7 @@ Mostrar el estado HTTP y la respuesta de cada petición. No afirmar que un paso 
 
 ## 4:15–5:20 · Tecnologías — Integrante 3
 
-> “Escribimos el servicio en JavaScript sobre Node.js 22, el runtime configurado para Functions. Cloud Functions v2 publica la función HTTP `onRequest` y se integra con Firebase Authentication, Firestore y sus emuladores. Aceptamos depender de Firebase y su plan facturado en producción.”
+> “Elegimos JavaScript sobre Node.js 22 porque es el runtime configurado para Functions y trabaja con los SDK de Firebase del proyecto. Como JavaScript tiene tipado dinámico, validamos las entradas. Cloud Functions v2 ejecuta `onRequest` bajo demanda; aceptamos depender de Firebase y su plan facturado en producción.”
 
 > “Para estas rutas elegimos un router propio y evitamos otra dependencia. Aceptamos mantener manualmente el despacho y los errores. Express ofrece rutas y middleware; Fastify agrega plugins y esquemas. Los reconsideraríamos si crecen las rutas comunes o las validaciones.”
 
