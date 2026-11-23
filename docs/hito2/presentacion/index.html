@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#102e24">
   <meta name="description" content="Presentación interactiva del backend REST de FrescApp para el Hito 2.">
   <title>FrescApp · Backend Hito 2</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="styles.css?v=crud-selector-2">
+  <script src="script.js?v=crud-selector-2" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -72,10 +72,10 @@
     </section>
 
     <section class="slide" id="demo" data-title="Explora una petición">
-      <div class="section-head"><p class="eyebrow">04 · EXPLORADOR INTERACTIVO</p><h2>¿Qué ocurre cuando presionamos “actualizar”?</h2><p>Elige una operación. La pantalla muestra un ejemplo de contrato, sin conectarse a servicios.</p></div>
+      <div class="section-head"><p class="eyebrow">04 · EXPLORADOR INTERACTIVO</p><h2>Explora el CRUD de Manzana y Arroz</h2><p>Selecciona Manzana o Arroz y explora POST, GET, PATCH y DELETE. Ejemplos visuales, sin conexión al servidor.</p></div>
       <div class="demo-layout">
         <div class="request-console">
-          <div class="console-head"><span class="console-dot red"></span><span class="console-dot yellow"></span><span class="console-dot green"></span><span class="console-title">Postman · ejemplo didáctico</span></div>
+          <div class="console-head"><span class="console-dot red"></span><span class="console-dot yellow"></span><span class="console-dot green"></span><span class="console-title">Explorador REST · ejemplo didáctico</span></div>
           <div class="product-tabs" role="tablist" aria-label="Seleccionar producto"><button class="product-tab active" data-product="manzana" aria-selected="true">🍎 Manzana</button><button class="product-tab" data-product="arroz" aria-selected="false">🍚 Arroz</button></div>
           <div class="operation-tabs" role="tablist" aria-label="Operación de ejemplo">
             <button class="op-tab active" data-op="post">POST</button><button class="op-tab" data-op="get">GET</button><button class="op-tab" data-op="patch">PATCH</button><button class="op-tab" data-op="delete">DELETE</button>
@@ -86,7 +86,7 @@
   "cantidad": 2,
   "unidad": "unidad"
 }</pre>
-          <div class="response-panel"><div class="response-label"><span>RESPUESTA ESPERADA</span><strong id="responseStatus">201 Created</strong></div><pre id="responseBody">{
+          <div class="response-panel"><div class="response-label"><span>RESPUESTA</span><strong id="responseStatus">201 Created</strong></div><pre id="responseBody">{
   "data": { "id": "abc123", "nombre": "Manzana" }
 }</pre></div>
           <p class="simulated-note">Muestra educativa · no envía una petición real</p>
