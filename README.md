@@ -15,13 +15,10 @@
 - [Modelo de datos Firestore](https://github.com/matias03tello-cloud/arq-app-compras/blob/main/db/MODELO_HITO2.md)
 - [Colección Postman local](https://github.com/matias03tello-cloud/arq-app-compras/blob/main/docs/hito2/FrescApp-Hito2.postman_collection.json)
 
-### Materiales del equipo
+### Informes de prueba
 
-- [Guion de exposición de 7 minutos](./docs/hito2/GUIÓN_PRESENTACION_HITO2.md)
-- [Prompt para repetir la prueba en otro computador](./docs/hito2/PROMPT_OTRO_CODEX_HITO2.md)
 - [Informe de Matías Tello](./docs/hito2/INFORME_PRUEBA_MATIAS_TELLO.md)
-- [Informe asignado a Benjamín](./docs/hito2/INFORME_PRUEBA_OTRO_EQUIPO.md)
-- [Auditoría del repositorio y backend](./docs/hito2/AUDITORIA_REPOSITORIO_HITO2.md)
+- [Informe de prueba de Benjamín](./docs/hito2/INFORME_PRUEBA_OTRO_EQUIPO.md)
 
 La colección se ejecuta contra Firebase Emulator Suite en localhost. Impórtala como archivo local en Postman y no la sincronices con la nube. Los informes deben reflejar respuestas observadas y capturas redactadas, sin tokens ni contraseñas.
 
