@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Arquitectura del backend FrescApp Hito 2</title>
+  <desc id="desc">Recorrido de una solicitud REST desde Postman hasta Cloud Firestore a través de Cloud Functions, router, controlador, servicio y repositorio. Firebase Authentication entrega el token verificado del que se deriva el UID.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#6d8b73"/></marker>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#173b2d}.label{font-size:20px;font-weight:700}.body{font-size:16px;fill:#4a6255}.small{font-size:15px;fill:#617468}.title{font-size:43px;font-weight:700}.eyebrow{font-size:16px;font-weight:700;letter-spacing:2px;fill:#748b3b}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#f5f8f3"/>
+  <text x="70" y="82" class="eyebrow">FRESCAPP · HITO 2 · FIGURA 1</text>
+  <text x="70" y="145" class="title">Arquitectura y recorrido de una petición</text>
+  <text x="70" y="190" class="body">El backend recibe la solicitud, verifica identidad, aplica reglas y persiste los datos.</text>
+
+  <g stroke="#6d8b73" stroke-width="4" marker-end="url(#arrow)">
+    <line x1="205" y1="405" x2="246" y2="405"/><line x1="433" y1="405" x2="474" y2="405"/>
+    <line x1="661" y1="405" x2="702" y2="405"/><line x1="889" y1="405" x2="930" y2="405"/>
+    <line x1="1117" y1="405" x2="1158" y2="405"/><line x1="1345" y1="405" x2="1386" y2="405"/>
+  </g>
+  <g>
+    <rect x="28" y="300" width="177" height="210" rx="20" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+    <rect x="28" y="300" width="177" height="12" rx="6" fill="#9bbf89"/>
+    <text x="48" y="355" class="label">Cliente</text><text x="48" y="383" class="label">/ Postman</text>
+    <text x="48" y="430" class="body">HTTP + token</text><text x="48" y="456" class="small">Authorization:</text><text x="48" y="479" class="small">Bearer &lt;ID token&gt;</text>
+
+    <rect x="256" y="300" width="177" height="210" rx="20" fill="#e5efe2" stroke="#cbdcc8" stroke-width="2"/>
+    <rect x="256" y="300" width="177" height="12" rx="6" fill="#6e9b69"/>
+    <text x="276" y="355" class="label">Cloud</text><text x="276" y="383" class="label">Functions v2</text>
+    <text x="276" y="430" class="body">Handler HTTPS</text><text x="276" y="456" class="small">functions/index.js</text><text x="276" y="479" class="small">api · onRequest</text>
+
+    <rect x="484" y="300" width="177" height="210" rx="20" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+    <rect x="484" y="300" width="177" height="12" rx="6" fill="#d7a66d"/>
+    <text x="504" y="355" class="label">Router</text><text x="504" y="383" class="label">+ controlador</text>
+    <text x="504" y="430" class="body">Rutas y método</text><text x="504" y="456" class="small">Autentica y valida</text><text x="504" y="479" class="small">forma HTTP</text>
+
+    <rect x="712" y="300" width="177" height="210" rx="20" fill="#e5efe2" stroke="#cbdcc8" stroke-width="2"/>
+    <rect x="712" y="300" width="177" height="12" rx="6" fill="#6e9b69"/>
+    <text x="732" y="355" class="label">Servicio</text>
+    <text x="732" y="405" class="body">Reglas de</text><text x="732" y="430" class="body">inventario y</text><text x="732" y="455" class="body">lista de compras</text><text x="732" y="483" class="small">service.js</text>
+
+    <rect x="940" y="300" width="177" height="210" rx="20" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+    <rect x="940" y="300" width="177" height="12" rx="6" fill="#d7a66d"/>
+    <text x="960" y="355" class="label">Repositorio</text>
+    <text x="960" y="405" class="body">Lecturas y</text><text x="960" y="430" class="body">escrituras de</text><text x="960" y="455" class="body">datos</text><text x="960" y="483" class="small">repository.js</text>
+
+    <rect x="1168" y="300" width="177" height="210" rx="20" fill="#e5efe2" stroke="#cbdcc8" stroke-width="2"/>
+    <rect x="1168" y="300" width="177" height="12" rx="6" fill="#6e9b69"/>
+    <text x="1188" y="355" class="label">Cloud</text><text x="1188" y="383" class="label">Firestore</text>
+    <text x="1188" y="430" class="body">Base documental</text><text x="1188" y="456" class="small">Persistencia</text><text x="1188" y="479" class="small">durable</text>
+
+    <rect x="1396" y="300" width="177" height="210" rx="20" fill="#173b2d" stroke="#173b2d" stroke-width="2"/>
+    <rect x="1396" y="300" width="177" height="12" rx="6" fill="#b4ca6a"/>
+    <text x="1416" y="355" class="label" style="fill:#ffffff">Respuesta</text><text x="1416" y="383" class="label" style="fill:#ffffff">HTTP</text>
+    <text x="1416" y="430" class="body" style="fill:#e2ebdc">201 · 200</text><text x="1416" y="456" class="body" style="fill:#e2ebdc">204 · errores</text><text x="1416" y="479" class="small" style="fill:#c4d5c2">contrato REST</text>
+  </g>
+
+  <rect x="70" y="610" width="1460" height="160" rx="24" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+  <circle cx="122" cy="690" r="26" fill="#e5efe2"/><text x="111" y="698" class="label">ID</text>
+  <text x="170" y="665" class="label">Identidad y alcance de datos</text>
+  <text x="170" y="705" class="body">Firebase Authentication emite el ID token. El controlador verifica el token con Admin SDK y obtiene el UID.</text>
+  <text x="170" y="740" class="body">El repositorio consulta la cuenta autenticada: usuarios/{uid}/inventario y usuarios/{uid}/listaCompras.</text>
+  <text x="70" y="835" class="small">Fuente: elaboración propia basada en functions/api y docs/hito2/BACKEND_HITO2.md.</text>
+</svg>
+

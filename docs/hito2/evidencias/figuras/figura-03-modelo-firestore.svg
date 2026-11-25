@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Modelo documental de Firestore para FrescApp</title>
+  <desc id="desc">El UID verificado define el documento de usuario y sus subcolecciones privadas de inventario, lista de compras y productos privados. El catálogo productos es compartido y sirve para validar la identidad del producto.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#6d8b73"/></marker>
+    <marker id="dashArrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#bd8857"/></marker>
+    <style>text{font-family:Arial,Helvetica,sans-serif;fill:#173b2d}.title{font-size:43px;font-weight:700}.eyebrow{font-size:16px;font-weight:700;letter-spacing:2px;fill:#748b3b}.label{font-size:20px;font-weight:700}.path{font-family:Consolas,'Courier New',monospace;font-size:20px;font-weight:700}.body{font-size:16px;fill:#4a6255}.small{font-size:14px;fill:#617468}</style>
+  </defs>
+  <rect width="1600" height="1000" fill="#f5f8f3"/>
+  <text x="70" y="82" class="eyebrow">FRESCAPP · HITO 2 · FIGURA 3</text>
+  <text x="70" y="145" class="title">Modelo documental en Cloud Firestore</text>
+  <text x="70" y="190" class="body">La API usa el UID verificado para mantener separados los datos de cada cuenta.</text>
+
+  <rect x="70" y="285" width="285" height="135" rx="22" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+  <circle cx="115" cy="337" r="22" fill="#e5efe2"/><text x="105" y="344" class="label">ID</text>
+  <text x="155" y="330" class="label">Firebase Auth</text><text x="155" y="367" class="body">ID token</text><text x="155" y="395" class="small">identidad del usuario</text>
+  <line x1="355" y1="353" x2="500" y2="353" stroke="#6d8b73" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="370" y="329" class="small">verifyIdToken</text>
+
+  <rect x="520" y="270" width="430" height="165" rx="24" fill="#173b2d"/>
+  <text x="560" y="320" class="small" style="fill:#c4d5c2">DOCUMENTO DEL USUARIO</text>
+  <text x="560" y="365" class="path" style="fill:#ffffff">usuarios/{uid}</text>
+  <text x="560" y="405" class="body" style="fill:#e2ebdc">uid = claim del token, no del cuerpo HTTP</text>
+
+  <line x1="735" y1="435" x2="735" y2="520" stroke="#6d8b73" stroke-width="4"/>
+  <line x1="230" y1="520" x2="1180" y2="520" stroke="#6d8b73" stroke-width="4"/>
+  <g stroke="#6d8b73" stroke-width="4" marker-end="url(#arrow)">
+    <line x1="230" y1="520" x2="230" y2="585"/><line x1="545" y1="520" x2="545" y2="585"/><line x1="860" y1="520" x2="860" y2="585"/>
+  </g>
+  <rect x="70" y="600" width="320" height="185" rx="22" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+  <rect x="70" y="600" width="320" height="12" rx="6" fill="#6e9b69"/>
+  <text x="100" y="655" class="label">Inventario privado</text><text x="100" y="696" class="path">inventario/{id}</text>
+  <text x="100" y="738" class="body">alimento, cantidad, vencimiento</text><text x="100" y="765" class="small">usuarios/{uid}/inventario/{id}</text>
+
+  <rect x="385" y="600" width="320" height="185" rx="22" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+  <rect x="385" y="600" width="320" height="12" rx="6" fill="#9bbf89"/>
+  <text x="415" y="655" class="label">Lista de compras</text><text x="415" y="696" class="path">listaCompras/{id}</text>
+  <text x="415" y="738" class="body">nombre, cantidad, comprado</text><text x="415" y="765" class="small">usuarios/{uid}/listaCompras/{id}</text>
+
+  <rect x="700" y="600" width="320" height="185" rx="22" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+  <rect x="700" y="600" width="320" height="12" rx="6" fill="#d7a66d"/>
+  <text x="730" y="655" class="label">Catálogo privado</text><text x="730" y="696" class="path">productosPrivados/{código}</text>
+  <text x="730" y="738" class="body">alternativa para validar inventario</text><text x="730" y="765" class="small">usuarios/{uid}/productosPrivados/…</text>
+
+  <rect x="1120" y="285" width="410" height="150" rx="24" fill="#e5efe2" stroke="#cbdcc8" stroke-width="2"/>
+  <text x="1160" y="330" class="small">CATÁLOGO COMPARTIDO</text><text x="1160" y="375" class="path">productos/{código}</text>
+  <text x="1160" y="405" class="body">solo administración lo modifica</text>
+  <text x="1160" y="427" class="small">El servicio lo consulta para validar inventario.</text>
+  <path d="M1530 360 L1555 360 L1555 815 L230 815 L230 790" fill="none" stroke="#bd8857" stroke-width="4" stroke-dasharray="10 10" marker-end="url(#dashArrow)"/>
+
+  <rect x="70" y="840" width="1460" height="92" rx="18" fill="#ffffff" stroke="#d8e4d7" stroke-width="2"/>
+  <circle cx="112" cy="886" r="10" fill="#6d8b73"/><text x="135" y="892" class="small">Subcolección privada del usuario</text>
+  <line x1="480" y1="886" x2="540" y2="886" stroke="#bd8857" stroke-width="4" stroke-dasharray="9 8"/><text x="555" y="892" class="small">El catálogo valida producto; la relación no es clave foránea</text>
+  <text x="1030" y="892" class="small">Fuente: db/MODELO_HITO2.md</text>
+</svg>
+
