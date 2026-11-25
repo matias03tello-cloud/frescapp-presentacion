@@ -15,10 +15,7 @@ La colección usa Firebase Emulator Suite en `127.0.0.1`; no llama APIs externas
 ## Presentación y evidencia
 
 - [Presentación web interactiva](./presentacion/)
-- [Guion de exposición de 7 minutos](./GUIÓN_PRESENTACION_HITO2.md)
-- [Prompt para repetir la prueba en otro computador](./PROMPT_OTRO_CODEX_HITO2.md)
 - [Informe de Matías Tello](./INFORME_PRUEBA_MATIAS_TELLO.md)
 - [Informe de prueba asignado a Benjamín](./INFORME_PRUEBA_OTRO_EQUIPO.md)
-- [Auditoría del repositorio y del backend](./AUDITORIA_REPOSITORIO_HITO2.md)
 
 Los informes deben conservar los estados realmente observados. No marcar una petición como aprobada sin ver su respuesta HTTP y guardar una captura sin tokens, contraseñas ni datos personales.
